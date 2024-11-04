@@ -35,8 +35,8 @@ class MyClient(botpy.Client):
             datas=json.loads(response.text)
             songs = {}
             print(datas)
-            title = datas.data[0].title
-            url = datas.data[0].url
+            title = datas['data'][0]['title']
+            url = datas['data'][0]['url']
             songs[str(title)] = str(url)
         _log.info(message.author.username)
         await message.reply(content=f"已经帮您查询到相关歌曲：{songs}")
