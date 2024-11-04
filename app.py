@@ -55,6 +55,6 @@ class MyClient(botpy.Client):
         )
         
 if __name__ == '__main__':
-    intents = botpy.Intents(public_guild_messages=True)
+    intents = botpy.Intents(public_messages=True)
     client = MyClient(intents=intents)
     client.run(appid=test_config["appid"], secret=test_config["secret"])
