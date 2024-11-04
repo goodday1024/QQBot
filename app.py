@@ -36,14 +36,24 @@ class MyClient(botpy.Client):
             songs = {}
             print(datas)
             title = datas['data'][0]['title']
-            url = datas['data'][0]['url']
+            songurl = datas['data'][0]['url']
             songs[str(title)] = str(url)
         _log.info(message.author.username)
-        file = requests.get(url)
-        with open(file, "rb") as ad:
-            audio = ad.read()
-        await message.reply(content=f"歌曲:{title}", audio_url=audio)
+        file_url = songurl  # 这里需要填写上传的资源Url
+        uploadMedia = await message._api.post_group_file(
+            group_openid=message.group_openid, 
+            file_type=1, # 文件类型要对应上，具体支持的类型见方法说明
+            url=file_url # 文件Url
+        )
 
+        # 资源上传后，会得到Media，用于发送消息
+        await message._api.post_group_message(
+            group_openid=message.group_openid,
+            msg_type=7,  # 7表示富媒体类型
+            msg_id=message.id, 
+            media=uploadMedia
+        )
+        
 if __name__ == '__main__':
     intents = botpy.Intents(public_guild_messages=True)
     client = MyClient(intents=intents)
