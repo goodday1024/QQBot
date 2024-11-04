@@ -39,7 +39,8 @@ class MyClient(botpy.Client):
             url = datas['data'][0]['url']
             songs[str(title)] = str(url)
         _log.info(message.author.username)
-        with open(url, "rb") as ad:
+        file = requests.get(url)
+        with open(file, "rb") as ad:
             audio = ad.read()
         await message.reply(content=f"歌曲:{title}", audio_url=audio)
 
