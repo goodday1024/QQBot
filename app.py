@@ -39,7 +39,9 @@ class MyClient(botpy.Client):
             url = datas['data'][0]['url']
             songs[str(title)] = str(url)
         _log.info(message.author.username)
-        await message.reply(content=f"已经帮您查询到相关歌曲：{songs}")
+        with open(url, "rb") as ad:
+            audio = ad.read()
+        await message.reply(content=f"歌曲:{title}", audio_url=audio)
 
 if __name__ == '__main__':
     intents = botpy.Intents(public_guild_messages=True)
