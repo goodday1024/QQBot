@@ -14,7 +14,7 @@ class MyClient(botpy.Client):
     async def on_ready(self):
         _log.info(f"robot 「{self.robot.name}」 on_ready!")
 
-    async def on_at_message_create(self, message: Message):
+    async def on_at_message_create(self, message: GroupMessage):
         _log.info(message.author.avatar)
         if "/请求音乐" in message.content:
             _log.info(message.author.avatar)
